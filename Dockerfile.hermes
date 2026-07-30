@@ -1,0 +1,39 @@
+# ==============================================================================
+# Dockerfile for Isolated Hermes Agent (Nous Research Official) - Odoo Integration
+# ==============================================================================
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Clone official Hermes Agent from Nous Research
+RUN git clone https://github.com/NousResearch/hermes-agent.git /app/hermes-agent
+
+WORKDIR /app/hermes-agent
+
+# Install dependencies for Hermes Agent & Odoo XML-RPC Bridge
+RUN pip install --no-cache-dir -r requirements.txt || true
+RUN pip install --no-cache-dir \
+    python-telegram-bot \
+    google-generativeai \
+    openai \
+    requests \
+    pydantic \
+    pyyaml
+
+# Copy custom Odoo tools & bridge
+COPY scripts /app/scripts
+
+# Set Environment Variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/hermes-agent:/app/scripts
+
+# Run entrypoint script
+CMD ["python3", "/app/scripts/run_hermes_odoo.py"]

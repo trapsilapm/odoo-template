@@ -30,6 +30,19 @@ services:
       - odoo-db-data:/var/lib/postgresql/data
     restart: always
 
+  hermes_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.hermes
+    container_name: odoo_hermes_agent
+    depends_on:
+      - web
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/app/scripts:ro
+    restart: always
+
 volumes:
   odoo-web-data:
   odoo-db-data:
