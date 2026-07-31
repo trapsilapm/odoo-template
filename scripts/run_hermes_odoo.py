@@ -24,25 +24,32 @@ DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-chat")
 
 SYSTEM_PROMPT = """Anda adalah Hermes AI Assistant khusus untuk Odoo ERP Perusahaan.
-Tugas Anda adalah membantu pengguna/tim bisnis untuk:
+Tugas Anda adalah membantu pengguna/manajemen/tim bisnis untuk:
 1. Mengecek sisa stok dan harga barang di Odoo gudang.
-2. Memberikan ringkasan omset penjualan dan transaksi dari Odoo.
-3. Mencatat prospek/lead calon pelanggan baru ke Odoo CRM.
+2. Memberikan ringkasan omset penjualan Sales & Kasir (Point of Sale / POS).
+3. Mengecek daftar produk terlaris (fast-moving items) dan warning barang stok menipis.
+4. Mengecek daftar invoice tagihan pelanggan yang belum lunas (Accounts Receivable).
+5. Membantu membuatkan draft Purchase Order (PO) pengadaan barang ke supplier.
+6. Mencari profil dan riwayat belanja pelanggan/customer.
+7. Mencatat prospek/lead calon pelanggan baru ke Odoo CRM.
 
-Gunakan tool function yang tersedia ketika user menanyakan stok, omset, atau meminta pembuatan lead CRM.
-Anda terisolasi penuh hanya untuk data Odoo ERP. Jawablah dengan ringkas, ramah, dan profesional dalam Bahasa Indonesia."""
+Gunakan tool function yang tersedia ketika user menanyakan stok, omset kasir, barang laris, stok menipis, piutang, PO supplier, profil customer, atau pembuatan lead CRM.
+Anda terisolasi penuh hanya untuk data Odoo ERP. Jawablah dengan ringkas, ramah, terstruktur, dan profesional dalam Bahasa Indonesia."""
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handler /start command"""
     welcome_msg = (
-        "👋 **Selamat datang di Hermes Agent for Odoo ERP! (Powered by DeepSeek AI)**\n\n"
-        "Saya adalah asisten AI terisolasi khusus untuk sistem Odoo Anda.\n"
+        "👋 **Selamat datang di Hermes Super Agent for Odoo ERP! (Powered by DeepSeek AI)**\n\n"
+        "Saya adalah asisten AI terisolasi khusus untuk sistem Odoo ERP Anda.\n"
         "Anda dapat bertanya kepada saya tentang:\n"
-        "• 📦 Cek stok barang (Contoh: *Cek stok laptop*)\n"
-        "• 📊 Omset penjualan (Contoh: *Berapa omset penjualan hari ini?*)\n"
-        "• 👤 Input CRM Lead (Contoh: *Buatkan lead baru Pak Eko HP 08123456789*)\n"
+        "• 🛒 **Kasir / POS**: *Berapa omset kasir hari ini?* / *Produk apa paling laris?*\n"
+        "• 📦 **Stok Gudang**: *Cek stok Roti Abon* / *Barang apa yang stoknya menipis?*\n"
+        "• 🧾 **Keuangan & Piutang**: *Siapa saja yang belum lunas bayar invoice?*\n"
+        "• 🛍️ **Pengadaan Barang**: *Buatkan draft PO ke Vendor Roti 50 pcs*\n"
+        "• 👥 **CRM & Customer**: *Cek riwayat belanja PT ABC* / *Input lead Pak Eko HP 0812345*\n"
     )
     await update.message.reply_text(welcome_msg, parse_mode='Markdown')
+
 
 def process_llm_with_deepseek(user_message: str):
     """Proses query LLM menggunakan DeepSeek API (OpenAI Compatible) + Tool Calling"""
