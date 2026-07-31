@@ -4,9 +4,11 @@
 
 /* 1. Fluid Dynamic Grid Layout for POS Product List */
 .pos .product-list,
-.product-screen .product-list {
+.product-screen .product-list,
+.pos-content .product-list,
+.o_pos_app .product-list {
     display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(var(--pos-card-min-width, 160px), 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(var(--pos-card-min-width, 165px), 1fr)) !important;
     gap: 12px !important;
     padding: 10px !important;
     box-sizing: border-box !important;
@@ -14,17 +16,19 @@
 
 /* 2. Product Card Container Styling */
 .pos .product-list .product,
-.product-screen .product-list .product {
+.product-screen .product-list .product,
+.pos-content .product-list .product,
+.o_pos_app .product-list .product {
     width: 100% !important;
     height: 100% !important;
-    min-height: var(--pos-card-min-height, 175px) !important;
+    min-height: var(--pos-card-min-height, 180px) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
+    border: 1px solid #cbd5e1 !important;
     border-radius: 10px !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
     overflow: hidden !important;
     transition: transform 0.12s ease-in-out, box-shadow 0.12s ease-in-out !important;
     cursor: pointer !important;
@@ -32,7 +36,8 @@
 
 /* Touch feedback for Cashier / Screen taps */
 .pos .product-list .product:active,
-.product-screen .product-list .product:active {
+.product-screen .product-list .product:active,
+.o_pos_app .product-list .product:active {
     transform: scale(0.96) !important;
     background-color: #f1f5f9 !important;
 }
@@ -40,9 +45,11 @@
 /* 3. Product Image Container & Scaling */
 .pos .product-list .product .product-img,
 .product-screen .product-list .product img,
-.product-screen .product-list .product .product-img {
+.product-screen .product-list .product .product-img,
+.o_pos_app .product-list .product img {
     width: 100% !important;
-    max-height: var(--pos-img-max-height, 115px) !important;
+    max-height: var(--pos-img-max-height, 120px) !important;
+    height: var(--pos-img-max-height, 120px) !important;
     object-fit: contain !important;
     padding: 6px !important;
     box-sizing: border-box !important;
@@ -50,10 +57,11 @@
 
 /* 4. Product Name Typography */
 .pos .product-list .product .product-name,
-.product-screen .product-list .product .product-name {
+.product-screen .product-list .product .product-name,
+.o_pos_app .product-list .product .product-name {
     font-size: var(--pos-title-size, 15px) !important;
     font-weight: 600 !important;
-    color: #1e293b !important;
+    color: #0f172a !important;
     line-height: 1.25 !important;
     padding: 6px 8px !important;
     word-break: break-word !important;
@@ -61,7 +69,8 @@
 
 /* 5. Price Tag Styling */
 .pos .product-list .product .price-tag,
-.product-screen .product-list .product .price-tag {
+.product-screen .product-list .product .price-tag,
+.o_pos_app .product-list .product .price-tag {
     font-size: var(--pos-price-size, 14px) !important;
     font-weight: 700 !important;
     background: #0284c7 !important;
@@ -85,11 +94,6 @@
         --pos-title-size: 13px;
         --pos-price-size: 12px;
     }
-    .pos .product-list,
-    .product-screen .product-list {
-        gap: 8px !important;
-        padding: 6px !important;
-    }
 }
 
 /* 📑 BREAKPOINT 2: POS Touch Terminals & Tablets 10"-15" (768px - 1366px) */
@@ -97,7 +101,7 @@
     :root {
         --pos-card-min-width: 165px;
         --pos-card-min-height: 185px;
-        --pos-img-max-height: 115px;
+        --pos-img-max-height: 120px;
         --pos-title-size: 15px;
         --pos-price-size: 14px;
     }
@@ -108,7 +112,7 @@
     :root {
         --pos-card-min-width: 190px;
         --pos-card-min-height: 210px;
-        --pos-img-max-height: 135px;
+        --pos-img-max-height: 140px;
         --pos-title-size: 16px;
         --pos-price-size: 15px;
     }

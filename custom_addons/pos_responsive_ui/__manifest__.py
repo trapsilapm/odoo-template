@@ -10,6 +10,12 @@
         'point_of_sale._assets_pos': [
             'pos_responsive_ui/static/src/css/pos_responsive.css',
         ],
+        'point_of_sale.assets': [
+            'pos_responsive_ui/static/src/css/pos_responsive.css',
+        ],
+        'web.assets_backend': [
+            'pos_responsive_ui/static/src/css/pos_responsive.css',
+        ],
     },
     'installable': True,
     'auto_install': False,
